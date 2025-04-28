@@ -9,11 +9,19 @@ export class AppService {
     return 'this is all return able data man';
   }
   // app.service.ts
-  singleData(id: string, slug?: string) {
+  singleData(id: string, slug?: string, sort?: string) {
     if (slug) {
-      return { data: 'Helooo this is my' };
+      if (sort) {
+        return {
+          data: 'Here Id is :' + id + '; slug is: ' + slug + '; query is ' + sort
+        };
+      }
+      return { data: 'Here Id is :' + id + '; slug is:' + slug };
     } else {
-      return { data: 'hello this is my productitnve mas' };
+      if (sort) {
+        return { data: 'hello id is' + id + '; query is ' + sort };
+      }
+      return { data: 'hello id is' + id };
     }
   }
 }
