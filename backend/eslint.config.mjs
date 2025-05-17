@@ -10,26 +10,7 @@ export default tseslint.config(
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
-  {
-    ...eslintPluginPrettierRecommended,
-    rules: {
-      ...eslintPluginPrettierRecommended.rules,
-      'prettier/prettier': [
-        'error',
-        {
-          endOfLine: 'auto',
-          useTabs: false,
-          tabWidth: 2,
-          printWidth: 80,
-          trailingComma: 'es5',
-          semi: true,
-          singleQuote: true,
-          bracketSpacing: true,
-          arrowParens: 'always',
-        },
-      ],
-    },
-  },
+  eslintPluginPrettierRecommended,
   {
     languageOptions: {
       globals: {
@@ -47,7 +28,7 @@ export default tseslint.config(
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-floating-promises': 'warn',
-      '@typescript-eslint/no-unsafe-argument': 'warn',
+      '@typescript-eslint/no-unsafe-argument': 'warn'
     },
-  }
+  },
 );
