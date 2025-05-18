@@ -1,5 +1,6 @@
-import { Property } from "src/module/property/entites/property.entity";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+
+import { Property } from "../../../module/property/entities/property.entity";
+import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('users')
 export class User {
@@ -7,13 +8,14 @@ export class User {
     id: number;
 
     @Column()
-    name: string;
+    firstName: string;
+    @Column()
+    lastName: string;
+    @Column()
+    email: string;
 
     @Column()
     description: string;
-
-    @Column({ name: 'price', type: Number })
-    price: number
 
     @Column({ default: true })
     isActive: boolean;
@@ -25,5 +27,9 @@ export class User {
 
     properties: Property
 
-
+    @ManyToMany(
+        () => Property,
+        (property) => property.likeBy
+    )
+    likedProperties: Property[]
 }

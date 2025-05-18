@@ -1,7 +1,9 @@
 
-import { PropertyFeature } from 'src/module/propertyfeature/entities/propertyfeature.entity';
-import { User } from 'src/module/user/entities/user.entity';
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, ManyToOne } from 'typeorm';
+
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, ManyToOne, ManyToMany } from 'typeorm';
+import { PropertyType } from './propertyType.entity';
+import { PropertyFeature } from '../../../module/propertyfeature/entities/propertyfeature.entity';
+import { User } from '../../../module/user/entities/user.entity';
 
 @Entity('properties')
 export class Property {
@@ -31,4 +33,16 @@ export class Property {
     (user) => user.properties
   )
   user: User
+
+  @ManyToMany(
+    () => User,
+    (user) => user.properties
+  )
+
+  likeBy: User[]
+
+  @ManyToOne(
+    () => PropertyType
+  )
+  type: PropertyType
 }

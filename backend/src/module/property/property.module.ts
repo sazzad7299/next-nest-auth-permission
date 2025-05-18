@@ -2,7 +2,7 @@ import { Module, ValidationPipe } from '@nestjs/common';
 import { PropertyController } from './property.controller';
 import { APP_PIPE } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Property } from './entites/property.entity';
+import { Property } from './entities/property.entity';
 import { PropertyService } from './property.service';
 
 @Module({

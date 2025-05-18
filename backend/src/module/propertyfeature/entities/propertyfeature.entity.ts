@@ -1,13 +1,14 @@
-import { Property } from "src/module/property/entites/property.entity";
+
+import { Property } from "../../../module/property/entities/property.entity";
 import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { number, string } from "zod";
+
 @Entity('property_features')
 export class PropertyFeature {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ name: "bedrooms", type: "varchar" })
-    bedrooms: string
+    @Column({ name: "bedrooms", type: "integer" })
+    bedrooms: number
     @Column({ name: 'parking_spot', type: "varchar" })
     parkingSpot: string
     @Column({ name: 'created_at', type: Date })
