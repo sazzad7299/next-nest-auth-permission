@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Property } from "./property.entity";
 
 @Entity()
 export class PropertyType {
@@ -7,4 +8,10 @@ export class PropertyType {
 
     @Column()
     value: string
+
+    @OneToMany(
+            () => Property,
+            (properties) => properties.type
+        )
+    properties:Property
 }

@@ -1,9 +1,9 @@
 
+import { faker } from '@faker-js/faker';
 import { Property } from '../module/property/entities/property.entity';
 import { PropertyType } from '../module/property/entities/propertyType.entity';
 import { PropertyFeature } from '../module/propertyfeature/entities/propertyfeature.entity';
 import { User } from '../module/user/entities/user.entity';
-import { faker } from '@faker-js/faker';
 import { DataSource } from 'typeorm';
 import { Seeder, SeederFactoryManager } from 'typeorm-extension';
 
@@ -17,24 +17,28 @@ export class DatabaseSeeder implements Seeder {
         ]);
 
         const userFactory = factoryManager.get(User);
-        const users = await userFactory.saveMany(20);
+        const users = await userFactory.saveMany(220);
 
         const propertyFactory = factoryManager.get(Property);
         const propertyFeatureFactory = factoryManager.get(PropertyFeature);
-        const features = await propertyFeatureFactory.saveMany(5);
+        const features = await propertyFeatureFactory.saveMany(225);
 
-        const properties = await Promise.all(
-            Array(50).fill(null).map(async () => {
-                return await propertyFactory.make({
-                    user: faker.helpers.arrayElement(users),
-                    type: faker.helpers.arrayElement(propertyType),
-                    propertyFeature: faker.helpers.arrayElement(features),
-                });
-            })
-        );
 
-        await dataSource.getRepository(Property).save(properties);
+        const properties: Property[] = [];
+            for (let i = 0; i < 250; i++) {
+                const property = await propertyFactory.make();
+                property.user = faker.helpers.arrayElement(users);
+                property.type = faker.helpers.arrayElement(propertyType);
+                property.propertyFeature = faker.helpers.arrayElement(features);
+                properties.push(property);
+            }
+            await dataSource.getRepository(Property).save(properties);
+            for (const user of users) {
+                user.likedProperties = faker.helpers.arrayElements(properties, faker.number.int({ min: 2, max: 5 }));
+            }
+            await dataSource.getRepository(User).save(users);
 
-        console.log(`✅ Seeded ${users.length} users, ${propertyType.length} property types, ${properties.length} properties.`);
+       
+
     }
 }

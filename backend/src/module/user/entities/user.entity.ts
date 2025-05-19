@@ -1,6 +1,6 @@
 
 import { Property } from "../../../module/property/entities/property.entity";
-import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('users')
 export class User {
@@ -31,5 +31,6 @@ export class User {
         () => Property,
         (property) => property.likeBy
     )
+     @JoinTable()
     likedProperties: Property[]
 }

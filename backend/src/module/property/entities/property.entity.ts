@@ -22,27 +22,20 @@ export class Property {
   @Column({ default: true })
   isActive: boolean;
 
-  @OneToOne(
-    () => PropertyFeature,
-    (propertyFeature) => propertyFeature.property
-  )
-  propertyFeature: PropertyFeature
+  @ManyToOne(() => User, user => user.properties)
+  user: User;
 
-  @ManyToOne(
+  @ManyToOne(() => PropertyType, type => type.properties)
+  type: PropertyType;
+
+  @ManyToOne(() => PropertyFeature, (feature) => feature.property)
+  propertyFeature: PropertyFeature;
+
+   @ManyToMany(
     () => User,
-    (user) => user.properties
+    (user) => user.likedProperties
   )
-  user: User
-
-  @ManyToMany(
-    () => User,
-    (user) => user.properties
-  )
-
+ 
   likeBy: User[]
 
-  @ManyToOne(
-    () => PropertyType
-  )
-  type: PropertyType
 }

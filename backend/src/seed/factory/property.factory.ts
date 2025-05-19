@@ -1,13 +1,11 @@
 
 import { Property } from "../../module/property/entities/property.entity";
 import { setSeederFactory } from "typeorm-extension";
-
-export const PropertyFactory = setSeederFactory(Property, (faker) => {
+import { faker } from '@faker-js/faker';
+export const PropertyFactory = setSeederFactory(Property, () => {
     const property = new Property();
-
     property.name = faker.location.street();
-    property.description = faker.lorem.sentence();
-    property.price = +faker.commerce.price({ min: 1000, max: 10000 });
-
+    property.description = faker.lorem.sentence(1);
+    property.price = +faker.number.int({ min: 1000, max: 10000 });
     return property;
 });
