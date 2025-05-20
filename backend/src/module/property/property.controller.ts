@@ -8,27 +8,15 @@ import { HeadersDto } from './dto/headers.dto';
 import { RequestHeader } from './pipes/request-header';
 import { PropertyService } from './property.service';
 import { UpdatePropertyDto } from './dto/updateProperty.dto';
+import { PaginationDto } from './dto/pagination.dto';
 
 @Controller('property')
 export class PropertyController {
     constructor(private propertyService: PropertyService) { }
 
     @Get()
-    findAll() {
-        return [
-            {
-                id: 1,
-                name: 'Property 1',
-                description: 'Description of Property 1',
-                price: 100000,
-            },
-            {
-                id: 2,
-                name: 'Property 2',
-                description: 'Description of Property 2',
-                price: 200000,
-            },
-        ];
+    findAll(@Query() paginationDto:PaginationDto) {
+        return this.propertyService.findAll(paginationDto)
     }
     @Get(':id')
 
